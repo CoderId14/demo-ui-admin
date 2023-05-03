@@ -95,14 +95,14 @@ export const searchBook = async (params: BookParamRequest) => {
   export function useUpdateBook() {
     const queryClient = useQueryClient();
     return useMutation((info: BookUpdateInfo) => updateBook(info), {
-      onMutate: async (newBook) => {
+      onMutate: async (_newBook) => {
         await queryClient.cancelQueries(["books"]);
         const previouBooks = queryClient.getQueryData(['books'])
 
     // Return a context object with the snapshotted value
         return { previouBooks }
       },
-      onError: (err, newBook, context) => {
+      onError: (_err, _newBook, context) => {
         queryClient.setQueryData(['books'], context?.previouBooks)
       },
       onSettled: () => {
@@ -113,13 +113,13 @@ export const searchBook = async (params: BookParamRequest) => {
   export function useAddBook() {
     const queryClient = useQueryClient();
     return useMutation((info: BookAddInfo) => addBook(info), {
-      onMutate: async (newBook) => {
+      onMutate: async (_newBook) => {
         await queryClient.cancelQueries(["books"]);
         const previouBooks = queryClient.getQueryData(['books'])
     // Return a context object with the snapshotted value
         return { previouBooks }
       },
-      onError: (err, newBook, context) => {
+      onError: (_err, _newBook, context) => {
         queryClient.setQueryData(['books'], context?.previouBooks)
       },
       onSettled: () => {
@@ -142,7 +142,7 @@ export const searchBook = async (params: BookParamRequest) => {
     // Return a context object with the snapshotted value
         return { previouBooks }
       },
-      onError: (err, bookId, context) => {
+      onError: (_err, _bookId, context) => {
         queryClient.setQueryData(['books'], context?.previouBooks)
       },
       onSettled: () => {

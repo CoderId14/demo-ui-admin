@@ -31,7 +31,6 @@ const schema = formSchema;
   function SignIn() {
     const login = useSelector(selectAuth).login;
     const user = login?.user ? login.user : null;
-    const isFetching = login.isFetching;
 
     
     const dispatch = useDispatch();

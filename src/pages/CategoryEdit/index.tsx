@@ -1,18 +1,16 @@
 import { useFetchCategories, useUpdateCategory } from "@/services/categoryService";
-import { useUpdateChapter } from "@/services/chapterService";
 import { Category } from "@/types/category/category.type";
-import { Chapter } from "@/types/chapter/chapter.type";
 import { ContainerOutlined } from "@ant-design/icons";
 import { Button, Divider, Form, Input, Skeleton, Space, Typography } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
-const { Title, Paragraph } = Typography
+const { Title } = Typography
 
 
 function CategoryEdit() {
   const { id } = useParams()
   const [form] = Form.useForm();
     const updateCategoryMutation = useUpdateCategory();
-  const { data, error, isFetching } = useFetchCategories({id: Number(id)})
+  const { data, isFetching } = useFetchCategories({id: Number(id)})
   const navigate = useNavigate();
   let category;
     if(data?.content){

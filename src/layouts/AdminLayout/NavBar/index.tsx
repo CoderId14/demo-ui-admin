@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 
 import { useDispatch } from 'react-redux'
 
-import { Avatar, Menu, MenuProps, Typography } from 'antd'
+import { Avatar, Menu, MenuProps } from 'antd'
 import { DownOutlined, HomeOutlined, LoginOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons'
 
 import classNames from 'classnames/bind'
@@ -15,11 +15,9 @@ import { selectAuth } from '@/redux/store'
 import { logOut } from '@/services/authService'
 
 let cx = classNames.bind(styles)
-const { Title } = Typography
 export const NavbarMain = () => {
   const login = useSelector(selectAuth).login
   const user = login?.user ? login.user : null
-  const accessToken = user?.accessToken ? user.accessToken : ''
   const isAuthorized = user ? true : false
   const dispatch = useDispatch()
   const navigate = useNavigate()

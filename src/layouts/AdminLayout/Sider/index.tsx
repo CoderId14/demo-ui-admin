@@ -1,16 +1,6 @@
 
-import { selectAuth } from "@/redux/store";
-import { logOut } from "@/services/authService";
-import {
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
-  LogoutOutlined,
-} from "@ant-design/icons";
 import { Layout, Menu } from "antd";
-import { memo, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate, NavLink } from "react-router-dom";
+import { memo } from "react";
 
 type Item = {
   key: string;
@@ -23,14 +13,6 @@ type Props = {
   items: Item[];
 };
 function Sider({ collapsed, items }: Props) {
-  const login = useSelector(selectAuth).login;
-  const user = login?.user ? login.user : null;
-  const accessToken = user?.accessToken ? user.accessToken : "";
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const handleLogout = () => {
-    if (user) logOut(dispatch, navigate);
-  };
   return (
     <Layout.Sider
       trigger={null}

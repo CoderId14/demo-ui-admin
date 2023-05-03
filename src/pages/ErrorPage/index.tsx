@@ -1,6 +1,5 @@
 import { Button, Result } from "antd";
 import { ResultStatusType } from "antd/lib/result";
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { AppConst } from "@/app-const";
 

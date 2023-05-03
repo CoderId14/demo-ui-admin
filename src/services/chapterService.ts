@@ -152,10 +152,10 @@ export const searchChapter = async (params: ChapterSearchParams) => {
     // Return a context object with the snapshotted value
         return { previouChapter }
       },
-      onError: (err, info, context) => {
+      onError: (_err, info, context) => {
         queryClient.setQueryData(['chapter', info.id], context?.previouChapter)
       },
-      onSettled: (info) => {
+      onSettled: (_info) => {
         queryClient.invalidateQueries({ queryKey: ['chapters'] })
       },
     });
@@ -170,7 +170,7 @@ export const searchChapter = async (params: ChapterSearchParams) => {
     // Return a context object with the snapshotted value
         return { previouChapter }
       },
-      onError: (err, info, context) => {
+      onError: (_err, info, context) => {
         queryClient.setQueryData(['chapter', info.id], context?.previouChapter)
       },
       onSettled: () => {
@@ -189,7 +189,7 @@ export const searchChapter = async (params: ChapterSearchParams) => {
     // Return a context object with the snapshotted value
         return { previouChapter }
       },
-      onError: (err, chapterId, context) => {
+      onError: (_err, chapterId, context) => {
         queryClient.setQueryData(['chapter', chapterId], context?.previouChapter)
       },
       onSettled: () => {

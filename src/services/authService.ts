@@ -59,7 +59,7 @@ export async function loginUser(payload: SignInFormInputs, dispatch: Dispatch<An
 
 export const logOut = async (
   dispatch: Dispatch<AnyAction>,
-  navigate: NavigateFunction,
+  _navigate: NavigateFunction,
 ) => {
   dispatch(logoutStart());
   try {

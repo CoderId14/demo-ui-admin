@@ -42,7 +42,7 @@ function ChapterAdd() {
       </Divider>
       <Editor
         apiKey='pmfqllzhlpfn980wmee9dndck6vclx7hy331lmx0dcimpm6l'
-        onInit={(evt, editor) => (editorRef.current = editor)}
+        onInit={(_evt, editor) => (editorRef.current = editor)}
         initialValue=''
         init={{
           height: 500,

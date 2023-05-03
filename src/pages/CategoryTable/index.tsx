@@ -1,12 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Button, Input, InputRef, Popconfirm, Row, Skeleton, Space, Table, Tag } from 'antd'
+import { Button, Input, InputRef, Popconfirm, Row, Skeleton, Space, Table } from 'antd'
 import type { ColumnType, ColumnsType, TablePaginationConfig } from 'antd/es/table'
 import { SearchOutlined } from '@mui/icons-material'
 import { FilterConfirmProps, FilterValue, SorterResult } from 'antd/es/table/interface'
 import Highlighter from 'react-highlight-words'
-import { useDeleteBook, useFetchBooks } from '@/services/bookService'
-import { BookDetails, BookParamRequest } from '@/types/book/book.type'
-import { convertBooksToBookDetails } from '@/utils/convert'
 import { Link, useNavigate } from 'react-router-dom'
 import { AppConst } from '@/app-const'
 import { Category, CategorySearchParams } from '@/types/category/category.type'
@@ -56,7 +53,7 @@ const CategoryTable: React.FC = () => {
     page: tableParams.pagination?.current ? tableParams.pagination.current - 1 : 0,
     size: 30
   })
-  const { status, data, error, isFetching } = useFetchCategories(searchParams)
+  const { data, isFetching } = useFetchCategories(searchParams)
   useEffect(() => {
     if (data?.content) {
       let bookData: Category[] = data.content;

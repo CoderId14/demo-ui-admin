@@ -1,6 +1,5 @@
 import { API_HOST_NAME } from '@/environments'
 import axios, { AxiosInstance } from 'axios'
-import { queryClient } from './queryClient'
 import { EnhancedStore } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
 import { updateAccessToken } from '@/redux/authSlice'

@@ -1,4 +1,4 @@
-import { Checkbox, Row } from "antd";
+import { Row } from "antd";
 
 function CategorySection() {
     return ( 

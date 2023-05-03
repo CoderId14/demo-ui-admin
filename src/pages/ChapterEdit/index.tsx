@@ -1,4 +1,3 @@
-import { AppConst } from "@/app-const";
 import { useFetchChapter, useUpdateChapter } from "@/services/chapterService";
 import { Chapter } from "@/types/chapter/chapter.type";
 import { ContainerOutlined } from "@ant-design/icons";
@@ -6,14 +5,14 @@ import { Editor } from "@tinymce/tinymce-react";
 import { Button, Divider, Form, Input, Skeleton, Space, Typography } from "antd";
 import { useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-const { Title, Paragraph } = Typography
+const { Title } = Typography
 
 
 function ChapterEdit() {
   const { id } = useParams()
   const [form] = Form.useForm();
     const updateChapterMutation = useUpdateChapter();
-  const { data, error, isFetching } = useFetchChapter(Number(id))
+  const { data, isFetching } = useFetchChapter(Number(id))
   const editorRef: any = useRef(null)
   const navigate = useNavigate()
 
@@ -56,7 +55,7 @@ function ChapterEdit() {
         </Divider>
         <Editor
           apiKey='pmfqllzhlpfn980wmee9dndck6vclx7hy331lmx0dcimpm6l'
-          onInit={(evt, editor) => (editorRef.current = editor)}
+          onInit={(_evt, editor) => (editorRef.current = editor)}
           initialValue={data?.content}
           init={{
             height: 500,

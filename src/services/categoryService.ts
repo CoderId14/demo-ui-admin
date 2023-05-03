@@ -94,14 +94,14 @@ export const searchCategory = async (params: CategorySearchParams) => {
   export function useUpdateCategory() {
     const queryClient = useQueryClient();
     return useMutation((info: Category) => updateCategory(info), {
-      onMutate: async (info) => {
+      onMutate: async (_info) => {
         await queryClient.cancelQueries(["categories"]);
         const previousCategories = queryClient.getQueryData(['categories'])
 
     // Return a context object with the snapshotted value
         return { previousCategories: previousCategories }
       },
-      onError: (err, info, context) => {
+      onError: (_err, _info, context) => {
         queryClient.setQueryData(['categories'], context?.previousCategories)
       },
       onSettled: () => {
@@ -112,13 +112,13 @@ export const searchCategory = async (params: CategorySearchParams) => {
   export function useAddCategory() {
     const queryClient = useQueryClient();
     return useMutation((info: Category) => addCategory(info), {
-      onMutate: async (info) => {
+      onMutate: async (_info) => {
         await queryClient.cancelQueries(["categories"]);
         const previousCategories = queryClient.getQueryData(['categories'])
     // Return a context object with the snapshotted value
         return { previousCategories }
       },
-      onError: (err, info, context) => {
+      onError: (_err, _info, context) => {
         queryClient.setQueryData(['categories'], context?.previousCategories)
       },
       onSettled: () => {
@@ -130,13 +130,13 @@ export const searchCategory = async (params: CategorySearchParams) => {
   export function useDeleteCategory() {
     const queryClient = useQueryClient();
     return useMutation((categoryId: string| number) => deleteCategory(categoryId), {
-      onMutate: async (categoryId) => {
+      onMutate: async (_categoryId) => {
         await queryClient.cancelQueries(["categories"]);
         const previousCategories:ApiResponse|undefined = queryClient.getQueryData(['categories'])
     // Return a context object with the snapshotted value
         return { previousCategories }
       },
-      onError: (err, bookId, context) => {
+      onError: (_err, _bookId, context) => {
         queryClient.setQueryData(['categories'], context?.previousCategories)
       },
       onSettled: () => {

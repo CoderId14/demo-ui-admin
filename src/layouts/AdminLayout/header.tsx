@@ -1,7 +1,6 @@
-import { LogoutOutlined, MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined } from '@ant-design/icons'
-import { Layout, Tooltip, Dropdown, Avatar, Button } from 'antd'
-import { useLocale } from 'antd/es/locale'
-import { FC, createElement } from 'react'
+import { LogoutOutlined, UserOutlined } from '@ant-design/icons'
+import { Layout, Dropdown, Avatar, Button } from 'antd'
+import { FC } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import styles from './adminLayout.module.scss'
@@ -18,12 +17,9 @@ interface HeaderProps {
   collapsed: boolean
 }
 
-type Action = 'userInfo' | 'userSetting' | 'logout'
-const HeaderComponent: FC<HeaderProps> = ({ collapsed }) => {
+const HeaderComponent: FC<HeaderProps> = () => {
     const login = useSelector(selectAuth).login
     const user = login?.user ? login.user : null
-    const accessToken = user?.accessToken ? user.accessToken : ''
-    const isAuthorized = user ? true : false
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const handleLogout = () => {

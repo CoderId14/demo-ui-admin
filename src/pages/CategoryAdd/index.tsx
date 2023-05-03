@@ -3,7 +3,7 @@ import { Category } from "@/types/category/category.type";
 import { ContainerOutlined } from "@ant-design/icons";
 import { Button, Divider, Form, Input, Space, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
-const { Title, Paragraph } = Typography
+const { Title } = Typography
 
 
 function CategoryAdd() {

@@ -62,7 +62,7 @@ const BookTable: React.FC = () => {
     page: tableParams.pagination?.current ? tableParams.pagination.current - 1 : 0,
     size: 30
   })
-  const { status, data, error, isFetching } = useFetchBooks(searchParams)
+  const { data, isFetching } = useFetchBooks(searchParams)
   useEffect(() => {
     if (data?.content) {
       let bookData: BookDetails[] = convertBooksToBookDetails(data.content)

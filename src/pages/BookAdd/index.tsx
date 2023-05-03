@@ -8,10 +8,9 @@ import { ITag } from "@/types/tag/tag.type"
 import { ContainerOutlined, UnorderedListOutlined } from "@ant-design/icons"
 import { Editor } from "@tinymce/tinymce-react"
 import { Button, Checkbox, Divider, Form, Input, Row, Skeleton, Space, Switch, Typography } from 'antd';
-import { toFormData } from "axios"
 import { useEffect, useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
-const { Title, Paragraph } = Typography
+const { Title } = Typography
 function BookAdd() {
     const addBookMutation = useAddBook()
     const { data: categories, isFetching: isFetchingCategory } = useFetchCategories({})
@@ -115,7 +114,7 @@ function BookAdd() {
 
         <Editor
           apiKey='pmfqllzhlpfn980wmee9dndck6vclx7hy331lmx0dcimpm6l'
-          onInit={(evt, editor) => (editorRef.current = editor)}
+          onInit={(_evt, editor) => (editorRef.current = editor)}
           initialValue=""
           init={{
             height: 500,

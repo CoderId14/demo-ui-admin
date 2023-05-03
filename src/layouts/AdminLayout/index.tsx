@@ -6,7 +6,6 @@ import styles from './adminLayout.module.scss'
 
 import classNames from 'classnames/bind'
 import { ItemType } from 'antd/lib/menu/hooks/useItems'
-import { NavbarMain } from './NavBar'
 import Sider from './Sider'
 import HeaderComponent from './header'
 import { BookOutlined } from '@mui/icons-material'
@@ -14,7 +13,7 @@ import { Link } from 'react-router-dom'
 import { AppConst } from '@/app-const'
 
 let cx = classNames.bind(styles)
-const { Header, Content } = Layout
+const { Content } = Layout
 
 interface Props {
   items?: ItemType[] | undefined

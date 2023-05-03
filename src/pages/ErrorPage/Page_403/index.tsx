@@ -1,6 +1,5 @@
 import { Button, Result } from "antd";
 import { ResultStatusType } from "antd/lib/result";
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { AppConst } from "@/app-const";
 
@@ -22,7 +21,7 @@ function ErrorPage403({
       title={title}
       subTitle={subTitle}
       extra={
-        <Button type="primary" onClick={() => navigate(AppConst.HOME_URL)}>
+        <Button type="primary" onClick={() => navigate(AppConst.HOME_ADMIN_URL)}>
           Go Home
         </Button>
       }
