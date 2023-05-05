@@ -6,12 +6,13 @@ import { FilterConfirmProps, FilterValue, SorterResult } from 'antd/es/table/int
 import Highlighter from 'react-highlight-words'
 import { Link, useNavigate } from 'react-router-dom'
 import { AppConst } from '@/app-const'
-import { Category, CategorySearchParams } from '@/types/category/category.type'
-import { useDeleteCategory, useFetchCategories } from '@/services/categoryService'
+import { useDeleteCategory } from '@/services/categoryService'
+import { ITag, TagSearchParams } from '@/types/tag/tag.type'
+import { useFetchTags } from '@/services/tagService'
 
 interface DataType {
   key: string | number
-  categoryName: string
+  tagName: string
   description: string
   modifiedDate: string | Date
 }
@@ -23,21 +24,21 @@ interface TableParams {
 }
 type DataIndex = keyof DataType
 
-function convertToDataTable(data: Category[]) {
+function convertToDataTable(data: ITag[]) {
   const dataTable: DataType[] = []
-  data.map((category) => {
+  data.map((tag) => {
     const tempData: DataType = {
-      key: category.categoryId,
-      categoryName: category.categoryName,
-      description: category.description,
+      key: tag.tagId,
+      tagName: tag.tagName,
+      description: tag.description,
       // modifiedDate: format(new Date(category.modifiedDate), 'yyyy/MM/dd kk:mm:ss', { locale: de })
-      modifiedDate: new Date(category.modifiedDate).toISOString().substring(0, 10)
+      modifiedDate: new Date(tag.modifiedDate).toISOString().substring(0, 10)
     }
     dataTable.push(tempData)
   })
   return dataTable
 }
-const CategoryTable: React.FC = () => {
+const TagTable: React.FC = () => {
   const [searchText, setSearchText] = useState('')
   const [searchedColumn, setSearchedColumn] = useState('')
   const searchInput = useRef<InputRef>(null)
@@ -50,14 +51,14 @@ const CategoryTable: React.FC = () => {
     }
   })
   const useDeleteCategoryMutation = useDeleteCategory()
-  const [searchParams, setSearchParams] = useState<CategorySearchParams>({
+  const [searchParams, setSearchParams] = useState<TagSearchParams>({
     page: tableParams.pagination?.current ? tableParams.pagination.current - 1 : 0,
     size: 30
   })
-  const { data, isFetching } = useFetchCategories(searchParams)
+  const { data, isFetching } = useFetchTags(searchParams)
   useEffect(() => {
     if (data?.content) {
-      const bookData: Category[] = data.content
+      const bookData: ITag[] = data.content
       setDataTable(convertToDataTable(bookData))
       setTableParams({
         ...tableParams,
@@ -67,7 +68,7 @@ const CategoryTable: React.FC = () => {
         }
       })
     }
-  }, [data, tableParams])
+  }, [data])
   const navigate = useNavigate()
   if (isFetching) {
     return <Skeleton></Skeleton>
@@ -167,10 +168,10 @@ const CategoryTable: React.FC = () => {
   })
   const columns: ColumnsType<DataType> = [
     {
-      title: 'CategoryName',
-      dataIndex: 'categoryName',
-      key: 'categoryName',
-      ...getColumnSearchProps('categoryName')
+      title: 'TagName',
+      dataIndex: 'tagName',
+      key: 'tagName',
+      ...getColumnSearchProps('tagName')
     },
     {
       title: 'Description',
@@ -187,7 +188,7 @@ const CategoryTable: React.FC = () => {
       key: 'action',
       render: (_, record) => (
         <Space size='middle'>
-          <Link to={AppConst.CATEGORY_ADMIN_EDIT_URL + record.key}>Edit</Link>
+          <Link to={AppConst.TAG_ADMIN_EDIT_URL + record.key}>Edit</Link>
           <Popconfirm title='Sure to delete?' onConfirm={() => handleDelete(record.key)}>
             <a>Delete</a>
           </Popconfirm>
@@ -217,8 +218,8 @@ const CategoryTable: React.FC = () => {
   return (
     <>
       <Row>
-        <Button type='primary' onClick={() => navigate(AppConst.CATEGORY_ADMIN_ADD_URL)}>
-          Add New Category
+        <Button type='primary' onClick={() => navigate(AppConst.TAG_ADMIN_ADD_URL)}>
+          Add New Tag
         </Button>
       </Row>
       <Table
@@ -233,4 +234,4 @@ const CategoryTable: React.FC = () => {
   )
 }
 
-export default CategoryTable
+export default TagTable

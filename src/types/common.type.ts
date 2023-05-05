@@ -1,4 +1,4 @@
-interface ApiResponse{
-    success: boolean;
-    message: string;
+interface ApiResponse {
+  success: boolean
+  message: string
 }

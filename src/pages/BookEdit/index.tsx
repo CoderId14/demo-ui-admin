@@ -18,7 +18,7 @@ function BookEdit() {
   const [book, setBook] = useState<BookDetails | undefined>()
   useEffect(() => {
     if (data) {
-      let bookData = convertBooksToBookDetails(data.content)
+      const bookData = convertBooksToBookDetails(data.content)
       setBook(bookData[0])
     }
   }, [data])

@@ -1,4 +1,4 @@
-import { Book, BookDetails } from "@/types/book/book.type";
+import { Book, BookDetails } from '@/types/book/book.type'
 
 export function convertBookToBookDetails(book: Book): BookDetails {
   return {
@@ -15,10 +15,10 @@ export function convertBookToBookDetails(book: Book): BookDetails {
     viewCount: book.viewCount,
     likeCount: book.likeCount,
     averageRating: book.averageRating,
-    premium: book.premium,
-  };
+    premium: book.premium
+  }
 }
 
 export function convertBooksToBookDetails(books: Book[]): BookDetails[] {
-  return books.map((book) => convertBookToBookDetails(book));
+  return books.map((book) => convertBookToBookDetails(book))
 }

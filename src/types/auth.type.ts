@@ -16,36 +16,36 @@ export interface UserLogoutSliceState {
   success: boolean
 }
 export interface DataLogin {
-    email: string;
-    exp: number;
-    iat: number;
-    roles: string[];
-    sub: string;
-    userId: number;
-    accessToken: string;
-    refreshToken: string;
+  email: string
+  exp: number
+  iat: number
+  roles: string[]
+  sub: string
+  userId: number
+  accessToken: string
+  refreshToken: string
+}
+export interface ResponseLogin {
+  status: string
+  message: string
+  responseData: {
+    accessToken: string
+    refreshToken: string
+    username: string
+    roles: string[]
   }
-  export interface ResponseLogin {
-    status: string;
-    message: string;
-    responseData: {
-      accessToken: string;
-      refreshToken: string;
-      username: string;
-      roles: string[]
-    };
-  }
-  export interface JwtInfo {
-    email: string;
-    exp: number;
-    iat: number;
-    roles: string;
-    sub: string;
-    userId: number;
-  }
-  
-  export interface RefreshTokenResponse{
-    accessToken: string;
-    refreshToken: string;
-    tokenType: string;
-  }
+}
+export interface JwtInfo {
+  email: string
+  exp: number
+  iat: number
+  roles: string
+  sub: string
+  userId: number
+}
+
+export interface RefreshTokenResponse {
+  accessToken: string
+  refreshToken: string
+  tokenType: string
+}

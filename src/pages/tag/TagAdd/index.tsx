@@ -1,21 +1,20 @@
-import { useAddCategory } from '@/services/categoryService'
-import { Category } from '@/types/category/category.type'
+import { useAddTag } from '@/services/tagService'
+import { ITag } from '@/types/tag/tag.type'
 import { ContainerOutlined } from '@ant-design/icons'
 import { Button, Divider, Form, Input, Space, Typography } from 'antd'
 import { useNavigate } from 'react-router-dom'
 const { Title } = Typography
 
-function CategoryAdd() {
+function TagAdd() {
   const [form] = Form.useForm()
-  const useAddCategoryMutation = useAddCategory()
+  const updateTagMutation = useAddTag()
   const navigate = useNavigate()
   const onFinish = (values: any) => {
-    const categoryUpdateInfo: Category = {
+    const tagUpdateInfo: ITag = {
       ...values
     }
-    useAddCategoryMutation.mutate(categoryUpdateInfo)
+    updateTagMutation.mutate(tagUpdateInfo)
     navigate(-1)
-    console.log('Received values of form: ', { ...values })
   }
 
   return (
@@ -23,11 +22,11 @@ function CategoryAdd() {
       <Divider orientation='left'>
         <Space style={{ display: 'flex', alignItems: 'center' }}>
           <ContainerOutlined style={{ fontSize: 32 }} />
-          <Title level={3}>Category Name</Title>
+          <Title level={3}>Tag Name</Title>
         </Space>
       </Divider>
-      <Form.Item name='categoryName'>
-        <Input placeholder='Category Name' />
+      <Form.Item name='tagName'>
+        <Input placeholder='Tag Name' />
       </Form.Item>
       <Divider orientation='left'>
         <Space style={{ display: 'flex', alignItems: 'center' }}>
@@ -47,4 +46,4 @@ function CategoryAdd() {
   )
 }
 
-export default CategoryAdd
+export default TagAdd

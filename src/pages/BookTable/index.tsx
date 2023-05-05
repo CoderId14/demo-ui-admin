@@ -28,9 +28,9 @@ interface TableParams {
 type DataIndex = keyof DataType
 
 function convertToDataTable(data: BookDetails[]) {
-  let dataTable: DataType[] = []
+  const dataTable: DataType[] = []
   data.map((book) => {
-    let tempData: DataType = {
+    const tempData: DataType = {
       key: book.bookId,
       bookName: book.title,
       authorName: book.author,
@@ -56,7 +56,7 @@ const BookTable: React.FC = () => {
       total: 10
     }
   })
-  const useDeleteBookMutation = useDeleteBook();
+  const useDeleteBookMutation = useDeleteBook()
   const [searchParams, setSearchParams] = useState<BookParamRequest>({
     detail: true,
     page: tableParams.pagination?.current ? tableParams.pagination.current - 1 : 0,
@@ -65,7 +65,7 @@ const BookTable: React.FC = () => {
   const { data, isFetching } = useFetchBooks(searchParams)
   useEffect(() => {
     if (data?.content) {
-      let bookData: BookDetails[] = convertBooksToBookDetails(data.content)
+      const bookData: BookDetails[] = convertBooksToBookDetails(data.content)
       setDataTable(convertToDataTable(bookData))
       setTableParams({
         ...tableParams,
@@ -76,7 +76,7 @@ const BookTable: React.FC = () => {
       })
     }
   }, [data])
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   if (isFetching) {
     return <Skeleton></Skeleton>
   }
@@ -102,7 +102,7 @@ const BookTable: React.FC = () => {
   }
   const handleDelete = (key: React.Key) => {
     useDeleteBookMutation.mutate(key)
-  };
+  }
   const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<DataType> => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
       <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
@@ -246,7 +246,7 @@ const BookTable: React.FC = () => {
       render: (_, record) => (
         <Space size='middle'>
           <Link to={AppConst.BOOK_ADMIN_EDIT_URL + record.key}>Edit</Link>
-          <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.key)}>
+          <Popconfirm title='Sure to delete?' onConfirm={() => handleDelete(record.key)}>
             <a>Delete</a>
           </Popconfirm>
         </Space>
@@ -271,11 +271,13 @@ const BookTable: React.FC = () => {
     //   setData([])
     // }
   }
-  
+
   return (
     <>
       <Row>
-        <Button type='primary' onClick={() =>navigate(AppConst.BOOK_ADMIN_ADD_URL)}>Add New Book</Button>
+        <Button type='primary' onClick={() => navigate(AppConst.BOOK_ADMIN_ADD_URL)}>
+          Add New Book
+        </Button>
       </Row>
       <Table
         columns={columns}

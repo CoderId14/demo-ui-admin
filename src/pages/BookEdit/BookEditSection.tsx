@@ -11,10 +11,11 @@ import { Divider, Space, Switch, Input, Row, Checkbox, Button, Form, Typography,
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ChapterListSection from './ChapterListSection'
+import ContentSection from '@/component/ContentSection'
 const { Title } = Typography
 interface Props {
-    book: BookDetails
-  }
+  book: BookDetails
+}
 function BookEditSection({ book }: Props) {
   const updateBookMutation = useUpdateBook()
   const { data: categories, isFetching: isFetchingCategory } = useFetchCategories({})
@@ -118,10 +119,7 @@ function BookEditSection({ book }: Props) {
           <Title level={3}>Content</Title>
         </Space>
       </Divider>
-      <Row>
-        <div 
-         dangerouslySetInnerHTML={{ __html: book?.content }}></div>
-      </Row>
+      <ContentSection content={book.content}></ContentSection>
       <Editor
         apiKey='pmfqllzhlpfn980wmee9dndck6vclx7hy331lmx0dcimpm6l'
         onInit={(_evt, editor) => (editorRef.current = editor)}

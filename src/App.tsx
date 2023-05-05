@@ -10,7 +10,6 @@ function App() {
   const user = useSelector(selectAuth).login.user
   return (
     <>
-    
       <Routes>
         {publicRoutes.map((route, index) => {
           const Page = route.component
@@ -23,7 +22,7 @@ function App() {
               key={index}
               path={route.path}
               element={
-                <AdminRoute isAllowed={!!user?.accessToken && user.roles.includes("ROLE_ADMIN")}>
+                <AdminRoute isAllowed={!!user?.accessToken && user.roles.includes('ROLE_ADMIN')}>
                   <AdminLayout>
                     <Page />
                   </AdminLayout>
@@ -34,8 +33,7 @@ function App() {
         })}
       </Routes>
       <div>
-
-      <ToastContainer />
+        <ToastContainer />
       </div>
     </>
   )

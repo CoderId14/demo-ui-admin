@@ -1,4 +1,10 @@
-import { MenuFoldOutlined, MenuUnfoldOutlined, UnorderedListOutlined, UserOutlined } from '@ant-design/icons'
+import {
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  TagOutlined,
+  UnorderedListOutlined,
+  UserOutlined
+} from '@ant-design/icons'
 import { Layout } from 'antd'
 import React, { useState } from 'react'
 
@@ -12,7 +18,7 @@ import { BookOutlined } from '@mui/icons-material'
 import { Link } from 'react-router-dom'
 import { AppConst } from '@/app-const'
 
-let cx = classNames.bind(styles)
+const cx = classNames.bind(styles)
 const { Content } = Layout
 
 interface Props {
@@ -27,15 +33,20 @@ function AdminLayout(props: Props) {
     {
       key: '1',
       icon: <BookOutlined />,
-      label: (<Link to={AppConst.BOOK_ADMIN_URL}>Book</Link>),
+      label: <Link to={AppConst.BOOK_ADMIN_URL}>Book</Link>
     },
     {
       key: '2',
       icon: <UnorderedListOutlined />,
-      label: (<Link to={AppConst.CATEGORY_ADMIN_URL}>Category</Link>),
+      label: <Link to={AppConst.CATEGORY_ADMIN_URL}>Category</Link>
     },
     {
       key: '3',
+      icon: <TagOutlined />,
+      label: <Link to={AppConst.TAG_ADMIN_URL}>Tag</Link>
+    },
+    {
+      key: '4',
       icon: <UserOutlined />,
       label: 'User',
       children: []
@@ -44,7 +55,7 @@ function AdminLayout(props: Props) {
   return (
     <Layout>
       <HeaderComponent collapsed={true}></HeaderComponent>
-      
+
       <Layout className={cx('site-layout')}>
         <Sider items={items} collapsed={collapsed}></Sider>
         {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {

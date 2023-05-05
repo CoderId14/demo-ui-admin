@@ -1,8 +1,6 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 
-import { useSelector } from 'react-redux'
-
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { Avatar, Menu, MenuProps } from 'antd'
 import { DownOutlined, HomeOutlined, LoginOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons'
@@ -14,7 +12,7 @@ import { Header } from 'antd/lib/layout/layout'
 import { selectAuth } from '@/redux/store'
 import { logOut } from '@/services/authService'
 
-let cx = classNames.bind(styles)
+const cx = classNames.bind(styles)
 export const NavbarMain = () => {
   const login = useSelector(selectAuth).login
   const user = login?.user ? login.user : null
@@ -32,7 +30,7 @@ export const NavbarMain = () => {
     icon?: React.ReactNode,
     children?: MenuItem[],
     type?: 'group',
-    authorized: boolean = true
+    authorized = true
   ): MenuItem {
     // if the submenu is unauthorized, return null
     if (!authorized) {

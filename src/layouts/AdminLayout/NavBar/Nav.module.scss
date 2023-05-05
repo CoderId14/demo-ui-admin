@@ -1,19 +1,19 @@
-@use "@/App";
+@use '@/App';
 
 .container {
-    display: flex;
-    position: relative;
+  display: flex;
+  position: relative;
 }
 
 // Antd 4.16.3 {float: right} won't work
 .right-style {
-    margin-left: auto;
+  margin-left: auto;
 }
 
 .iconSizeLarge {
-    font-size: App.$iconSizeLarge !important;
+  font-size: App.$iconSizeLarge !important;
 }
 
 .iconSizeMedium {
-    font-size: App.$iconSizeMedium !important;
+  font-size: App.$iconSizeMedium !important;
 }

@@ -23,9 +23,9 @@ export async function loginUser(payload: SignInFormInputs, dispatch: Dispatch<An
       refreshToken: response.data.responseData.refreshToken,
       roles: response.data.responseData.roles
     }
-    
+
     dispatch(loginSuccess(data))
-    console.log("data role", data.roles)
+    console.log('data role', data.roles)
     console.log(data.roles.includes('ROLE_ADMIN'))
     if (data.roles.includes('ROLE_ADMIN')) {
       toast.success(response.data.message)
@@ -57,16 +57,13 @@ export async function loginUser(payload: SignInFormInputs, dispatch: Dispatch<An
   }
 }
 
-export const logOut = async (
-  dispatch: Dispatch<AnyAction>,
-  _navigate: NavigateFunction,
-) => {
-  dispatch(logoutStart());
+export const logOut = async (dispatch: Dispatch<AnyAction>, _navigate: NavigateFunction) => {
+  dispatch(logoutStart())
   try {
-    dispatch(logoutSuccess("Logout succcess"));
-    toast.success("Logged out successfully");
+    dispatch(logoutSuccess('Logout succcess'))
+    toast.success('Logged out successfully')
   } catch (error) {
-    dispatch(logoutFailed("log out failed"));
-    toast.error("Logged out failed");
+    dispatch(logoutFailed('log out failed'))
+    toast.error('Logged out failed')
   }
-};
+}

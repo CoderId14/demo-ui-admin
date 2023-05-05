@@ -1,26 +1,26 @@
-import { useFetchCategories, useUpdateCategory } from '@/services/categoryService'
-import { Category } from '@/types/category/category.type'
+import { useFetchTags, useUpdateTag } from '@/services/tagService'
+import { ITag } from '@/types/tag/tag.type'
 import { ContainerOutlined } from '@ant-design/icons'
 import { Button, Divider, Form, Input, Skeleton, Space, Typography } from 'antd'
 import { useNavigate, useParams } from 'react-router-dom'
 const { Title } = Typography
 
-function CategoryEdit() {
+function TagEdit() {
   const { id } = useParams()
   const [form] = Form.useForm()
-  const updateCategoryMutation = useUpdateCategory()
-  const { data, isFetching } = useFetchCategories({ id: Number(id) })
+  const updateTagMutation = useUpdateTag()
+  const { data, isFetching } = useFetchTags({ id: Number(id) })
   const navigate = useNavigate()
-  let category
+  let tag
   if (data?.content) {
-    category = data?.content[0]
+    tag = data?.content[0]
   }
   const onFinish = (values: any) => {
-    const categoryUpdateInfo: Category = {
+    const tagUpdateInfo: ITag = {
       ...values,
-      categoryId: Number(id)
+      tagId: Number(id)
     }
-    updateCategoryMutation.mutate(categoryUpdateInfo)
+    updateTagMutation.mutate(tagUpdateInfo)
     navigate(-1)
     console.log('Received values of form: ', { ...values, id: id })
   }
@@ -32,18 +32,18 @@ function CategoryEdit() {
       form={form}
       onFinish={onFinish}
       initialValues={{
-        categoryName: category?.categoryName,
-        description: category?.description
+        tagName: tag?.tagName,
+        description: tag?.description
       }}
     >
       <Divider orientation='left'>
         <Space style={{ display: 'flex', alignItems: 'center' }}>
           <ContainerOutlined style={{ fontSize: 32 }} />
-          <Title level={3}>Category Name</Title>
+          <Title level={3}>Tag Name</Title>
         </Space>
       </Divider>
-      <Form.Item name='categoryName'>
-        <Input placeholder='Category Name' />
+      <Form.Item name='tagName'>
+        <Input placeholder='Tag Name' />
       </Form.Item>
       <Divider orientation='left'>
         <Space style={{ display: 'flex', alignItems: 'center' }}>
@@ -63,4 +63,4 @@ function CategoryEdit() {
   )
 }
 
-export default CategoryEdit
+export default TagEdit

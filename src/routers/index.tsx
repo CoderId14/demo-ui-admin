@@ -10,19 +10,23 @@ import ChapterEdit from '@/pages/ChapterEdit'
 import ErrorPage from '@/pages/ErrorPage'
 import ErrorPage403 from '@/pages/ErrorPage/Page_403'
 import SignIn from '@/pages/SignIn'
+import TagAdd from '@/pages/tag/TagAdd'
+import TagEdit from '@/pages/tag/TagEdit'
+import TagTable from '@/pages/tag/TagTable'
 
 const adminRoutes = [
   { path: AppConst.HOME_ADMIN_URL, component: BookTable },
   { path: AppConst.BOOK_ADMIN_URL, component: BookTable },
   { path: AppConst.CATEGORY_ADMIN_URL, component: CategoryTable },
-  { path: AppConst.CATEGORY_ADMIN_EDIT_URL + ":id", component: CategoryEdit },
+  { path: AppConst.CATEGORY_ADMIN_EDIT_URL + ':id', component: CategoryEdit },
   { path: AppConst.CATEGORY_ADMIN_ADD_URL, component: CategoryAdd },
-  { path: AppConst.BOOK_ADMIN_EDIT_URL + ":id", component: BookEdit },
+  { path: AppConst.TAG_ADMIN_URL, component: TagTable },
+  { path: AppConst.TAG_ADMIN_EDIT_URL + ':id', component: TagEdit },
+  { path: AppConst.TAG_ADMIN_ADD_URL, component: TagAdd },
+  { path: AppConst.BOOK_ADMIN_EDIT_URL + ':id', component: BookEdit },
   { path: AppConst.BOOK_ADMIN_ADD_URL, component: BookAdd },
-  { path: AppConst.CHAPTER_ADMIN_EDIT_URL + ":id", component: ChapterEdit },
-  { path: AppConst.CHAPTER_ADMIN_ADD_URL + ":id" , component: ChapterAdd },
-
-
+  { path: AppConst.CHAPTER_ADMIN_EDIT_URL + ':id', component: ChapterEdit },
+  { path: AppConst.CHAPTER_ADMIN_ADD_URL + ':id', component: ChapterAdd }
 ]
 
 const publicRoutes = [
