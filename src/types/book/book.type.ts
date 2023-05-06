@@ -17,6 +17,8 @@ export interface Book {
   likeCount: number
   averageRating: number
   premium: boolean
+  novel: boolean
+  
 }
 export interface BookDetails {
   bookId: number
@@ -33,6 +35,7 @@ export interface BookDetails {
   likeCount: number
   averageRating: number
   premium: boolean
+  novel: boolean
 }
 export interface BookResponse {
   content: Book[]
@@ -67,6 +70,7 @@ export interface BookUpdateInfo {
   thumbnail?: string | null
   thumbnailUrl: string
   isPremium: boolean
+  isNovel: boolean
 }
 
 export interface BookAddInfo {
@@ -77,4 +81,5 @@ export interface BookAddInfo {
   thumbnail?: string | null
   thumbnailUrl: string
   isPremium: boolean
+  isNovel: boolean
 }

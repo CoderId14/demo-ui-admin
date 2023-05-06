@@ -53,7 +53,8 @@ function BookAdd() {
       form={form}
       onFinish={onFinish}
       initialValues={{
-        isPremium: false
+        isPremium: false,
+        isNovel: false
       }}
     >
       <Divider orientation='left'>
@@ -63,6 +64,15 @@ function BookAdd() {
         </Space>
       </Divider>
       <Form.Item name='isPremium' valuePropName='checked'>
+        <Switch />
+      </Form.Item>
+      <Divider orientation='left'>
+        <Space style={{ display: 'flex', alignItems: 'center' }}>
+          <ContainerOutlined style={{ fontSize: 32 }} />
+          <Title level={3}>Novel</Title>
+        </Space>
+      </Divider>
+      <Form.Item name='isNovel' valuePropName='checked'>
         <Switch />
       </Form.Item>
 

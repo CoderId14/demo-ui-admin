@@ -57,6 +57,7 @@ function BookEditSection({ book }: Props) {
       onFinish={onFinish}
       initialValues={{
         isPremium: book?.premium,
+        isNovel: book?.novel,
         title: book?.title,
         thumbnailUrl: book?.thumbnailUrl,
         categories: book?.categories.map((category) => category.categoryId),
@@ -72,7 +73,15 @@ function BookEditSection({ book }: Props) {
       <Form.Item name='isPremium' valuePropName='checked'>
         <Switch defaultChecked={book?.premium} />
       </Form.Item>
-
+      <Divider orientation='left'>
+        <Space style={{ display: 'flex', alignItems: 'center' }}>
+          <ContainerOutlined style={{ fontSize: 32 }} />
+          <Title level={3}>Novel</Title>
+        </Space>
+      </Divider>
+      <Form.Item name='isNovel' valuePropName='checked'>
+        <Switch defaultChecked={book?.novel} />
+      </Form.Item>
       <Divider orientation='left'>
         <Space style={{ display: 'flex', alignItems: 'center' }}>
           <ContainerOutlined style={{ fontSize: 32 }} />
