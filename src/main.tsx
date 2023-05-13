@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 
@@ -15,6 +15,11 @@ const theme = createTheme()
 // Tránh trực tiếp injectStore vào codebase file, và cũng không dùng trực tiếp hook ở file không phải components
 //  => injectStore vào interceptors
 injectStore(store)
+
+// Giữ server luôn ở trạng thái hoạt động
+setInterval( async () => {
+	await fetch(`https://demo-jg34.onrender.com/api/book/v1/search`);
+}, 60*1000*5);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
