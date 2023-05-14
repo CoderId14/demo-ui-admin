@@ -7,6 +7,8 @@ import CategoryEdit from '@/pages/CategoryEdit'
 import CategoryTable from '@/pages/CategoryTable'
 import ChapterAdd from '@/pages/ChapterAdd'
 import ChapterEdit from '@/pages/ChapterEdit'
+import ChapterImgAdd from '@/pages/ChapterImgAdd'
+import ChapterImgEdit from '@/pages/ChapterImgEdit'
 import ErrorPage from '@/pages/ErrorPage'
 import ErrorPage403 from '@/pages/ErrorPage/Page_403'
 import SignIn from '@/pages/SignIn'
@@ -26,7 +28,11 @@ const adminRoutes = [
   { path: AppConst.BOOK_ADMIN_EDIT_URL + ':id', component: BookEdit },
   { path: AppConst.BOOK_ADMIN_ADD_URL, component: BookAdd },
   { path: AppConst.CHAPTER_ADMIN_EDIT_URL + ':id', component: ChapterEdit },
-  { path: AppConst.CHAPTER_ADMIN_ADD_URL + ':id', component: ChapterAdd }
+  { path: AppConst.CHAPTER_ADMIN_ADD_URL + ':id', component: ChapterAdd },
+  { path: AppConst.CHAPTER_IMG_ADMIN_ADD_URL + ':id', component:  ChapterImgAdd},
+  { path: AppConst.CHAPTER_IMG_ADMIN_EDIT_URL + ':id', component: ChapterImgEdit}
+
+
 ]
 
 const publicRoutes = [

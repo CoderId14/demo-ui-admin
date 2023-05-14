@@ -9,9 +9,10 @@ import { Link, useNavigate } from 'react-router-dom'
 import { AppConst } from '@/app-const'
 const { Title, Paragraph } = Typography
 interface Props {
-  bookId: number
+  bookId: number,
+  isNovel: boolean
 }
-function ChapterListSection({ bookId }: Props) {
+function ChapterListSection({ bookId, isNovel }: Props) {
   console.log('ChapterListSection re rendered')
   const { data, error, isFetching } = useFetchChapters({
     book: bookId
@@ -58,7 +59,7 @@ function ChapterListSection({ bookId }: Props) {
         </Col>
       </Row>
       <Divider></Divider>
-      <Button type='primary' onClick={() => navigate(AppConst.CHAPTER_ADMIN_ADD_URL + bookId)}>
+      <Button type='primary' onClick={() => navigate(isNovel? AppConst.CHAPTER_ADMIN_ADD_URL + bookId : AppConst.CHAPTER_IMG_ADMIN_ADD_URL + bookId)}>
         Add New Chapter
       </Button>
       <List
@@ -70,7 +71,7 @@ function ChapterListSection({ bookId }: Props) {
               Chapter {item?.chapterNumber}: {item?.title}
             </Typography.Text>
             <Space size='middle'>
-              <Link to={AppConst.CHAPTER_ADMIN_EDIT_URL + item.id}>Edit</Link>
+              <Link to={isNovel ? AppConst.CHAPTER_ADMIN_EDIT_URL + item.id : AppConst.CHAPTER_IMG_ADMIN_EDIT_URL + item.id}>Edit</Link>
               <Popconfirm title='Sure to delete?'>
                 <a>Delete</a>
               </Popconfirm>

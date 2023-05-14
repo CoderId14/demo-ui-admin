@@ -149,7 +149,7 @@ function BookEditSection({ book }: Props) {
           content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
         }}
       />
-      <ChapterListSection bookId={book.bookId}></ChapterListSection>
+      <ChapterListSection bookId={book.bookId} isNovel={book.novel}></ChapterListSection>
       <Form.Item style={{ display: 'flex', justifyContent: 'center', marginTop: 16 }}>
         <Button type='primary' htmlType='submit' size='large'>
           Submit

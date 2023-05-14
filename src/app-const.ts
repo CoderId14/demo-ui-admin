@@ -7,6 +7,8 @@ export namespace AppConst {
   export const BOOK_ADMIN_ADD_URL = '/book/add'
   export const CHAPTER_ADMIN_EDIT_URL = '/chapter/edit/'
   export const CHAPTER_ADMIN_ADD_URL = '/chapter/add/'
+  export const CHAPTER_IMG_ADMIN_EDIT_URL = '/chapterImg/edit/'
+  export const CHAPTER_IMG_ADMIN_ADD_URL = '/chapterImg/add/'
   export const CATEGORY_ADMIN_URL = '/category'
   export const CATEGORY_ADMIN_ADD_URL = '/category/add'
   export const CATEGORY_ADMIN_EDIT_URL = '/category/edit/'
