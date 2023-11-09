@@ -16,6 +16,7 @@ export interface Book {
   viewCount: number
   likeCount: number
   averageRating: number
+  totalChapter: number
   premium: boolean
   novel: boolean
   
@@ -33,6 +34,7 @@ export interface BookDetails {
   latestChapters: LatestChapter[]
   viewCount: number
   likeCount: number
+  totalChapter: number
   averageRating: number
   premium: boolean
   novel: boolean

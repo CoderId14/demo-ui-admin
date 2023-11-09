@@ -34,7 +34,7 @@ function convertToDataTable(data: BookDetails[]) {
       key: book.bookId,
       bookName: book.title,
       authorName: book.author,
-      chapters: 123,
+      chapters: book.totalChapter,
       categories: book.categories.map((category) => category.categoryName) || [],
       tags: book.tags.map((tag) => tag.tagName) || [],
       views: book.viewCount,
