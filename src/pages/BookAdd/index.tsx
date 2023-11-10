@@ -1,25 +1,33 @@
 import { AppConst } from '@/app-const'
+import axiosInstance from '@/config/axios'
 import { useAddBook } from '@/services/bookService'
 import { useFetchCategories } from '@/services/categoryService'
 import { useFetchTags } from '@/services/tagService'
 import { BookAddInfo } from '@/types/book/book.type'
 import { Category } from '@/types/category/category.type'
 import { ITag } from '@/types/tag/tag.type'
-import { ContainerOutlined, UnorderedListOutlined } from '@ant-design/icons'
+import { ContainerOutlined, UnorderedListOutlined, UploadOutlined } from '@ant-design/icons'
 import { Editor } from '@tinymce/tinymce-react'
-import { Button, Checkbox, Divider, Form, Input, Row, Skeleton, Space, Switch, Typography } from 'antd'
+import { Button, Checkbox, Divider, Form, Input, Row, Skeleton, Space, Switch, Typography, Upload, UploadProps, message } from 'antd'
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { storage } from '@/config-firebsae'
+import { getDownloadURL, ref } from 'firebase/storage'
 const { Title } = Typography
+
+
+
 function BookAdd() {
   const addBookMutation = useAddBook()
   const { data: categories, isFetching: isFetchingCategory } = useFetchCategories({})
   const [categoryData, setCategoryData] = useState<Category[]>([])
   const navigate = useNavigate()
-
+  const [thumbnailUrlState, setThumbnailUrl] = useState('' as string)
   const { data: tags, isFetching: isFetchingTag } = useFetchTags({})
   const [tagData, setTagData] = useState<ITag[]>([])
 
+
+  
   useEffect(() => {
     if (categories?.content) {
       setCategoryData(categories.content)
@@ -33,11 +41,12 @@ function BookAdd() {
   const onFinish = (values: any) => {
     const bookUpdateInfo: BookAddInfo = {
       ...values,
+      thumbnailUrl: thumbnailUrlState,
       content: editorRef.current.getContent()
     }
     addBookMutation.mutate(bookUpdateInfo)
     navigate(AppConst.BOOK_ADMIN_URL)
-    console.log('Received values of form: ', { ...values, content: editorRef.current.getContent() })
+    console.log('Received values of form: ', { ...values,thumbnailUrl: thumbnailUrlState, content: editorRef.current.getContent() })
   }
   const categoryOptions = categoryData.map((category: Category) => ({
     label: category.categoryName,
@@ -45,6 +54,31 @@ function BookAdd() {
   }))
   const tagOptions = tagData.map((tag: ITag) => ({ label: tag.tagName, value: tag.tagId }))
 
+ 
+  const props: UploadProps = {
+    name: 'file',
+    action: axiosInstance.defaults.baseURL + 'attachment/v1/upload',
+    headers: {
+      authorization: 'authorization-text',
+    },
+    onChange(info) {
+      console.log("infoL ", info)
+      if (info.file.status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+            if (info.file.status === 'done') {
+        message.success(`${info.file.name} file uploaded successfully`);
+        const url = info.file.response.responseData;
+ 
+        const imageRef = ref(storage, url);
+        getDownloadURL(imageRef).then((url) => { setThumbnailUrl(url)})
+      
+      } else if (info.file.status === 'error') {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
+  };
+  console.log("thumbnailUrl: ", thumbnailUrlState)
   if (isFetchingCategory || isFetchingTag || addBookMutation.isLoading) {
     return <Skeleton />
   }
@@ -83,7 +117,7 @@ function BookAdd() {
         </Space>
       </Divider>
       <Form.Item name='title'>
-        <Input placeholder='Title' />
+        <Input placeholder='Title'/>
       </Form.Item>
       <Divider orientation='left'>
         <Space style={{ display: 'flex', alignItems: 'center' }}>
@@ -92,7 +126,10 @@ function BookAdd() {
         </Space>
       </Divider>
       <Form.Item name='thumbnailUrl'>
-        <Input placeholder='Thumbnail Url' />
+        <Input placeholder='Thumbnail Url' value={thumbnailUrlState}/>
+        <Upload {...props}>
+          <Button icon={<UploadOutlined />}>Click to Upload</Button>
+        </Upload>
       </Form.Item>
       <Divider orientation='left'>
         <Space style={{ display: 'flex', alignItems: 'center' }}>

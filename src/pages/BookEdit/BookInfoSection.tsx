@@ -28,7 +28,7 @@ function BookInfoSection({ book }: Props) {
               <UnorderedListOutlined style={{ fontSize: 24 }} />
               {book?.categories.map((category) => {
                 return (
-                  <Link to={'#'}>
+                  <Link to={'#'} key={category.categoryId}>
                     <Tag color='magenta'>{category?.categoryName}</Tag>
                   </Link>
                 )
@@ -36,7 +36,7 @@ function BookInfoSection({ book }: Props) {
             </Space>
             <Space>
               <FileTextOutlined style={{ fontSize: 24 }} />
-              {book?.latestChapters[0]?.chapterNumber} Chapters
+              {book?.latestChapters[0]?.chapterNumber ? book?.latestChapters[0]?.chapterNumber : 0} Chapters
             </Space>
             <Space>
               <EyeOutlined style={{ fontSize: 24 }} />
@@ -47,7 +47,7 @@ function BookInfoSection({ book }: Props) {
           <div>
             <Space>
               <Rate disabled defaultValue={book?.averageRating} />
-              <span style={{ fontSize: 24 }}> {book?.averageRating} (70 review)</span>
+              <span style={{ fontSize: 24 }}> {book?.averageRating} ({book.reviewCount} reviews)</span>
             </Space>
           </div>
         </div>

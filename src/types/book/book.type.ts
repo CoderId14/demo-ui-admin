@@ -17,6 +17,7 @@ export interface Book {
   likeCount: number
   averageRating: number
   totalChapter: number
+  reviewCount: number
   premium: boolean
   novel: boolean
   
@@ -36,6 +37,7 @@ export interface BookDetails {
   likeCount: number
   totalChapter: number
   averageRating: number
+  reviewCount: number
   premium: boolean
   novel: boolean
 }

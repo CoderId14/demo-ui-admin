@@ -5,13 +5,16 @@ import { useFetchTags } from '@/services/tagService'
 import { BookDetails, BookUpdateInfo } from '@/types/book/book.type'
 import { Category } from '@/types/category/category.type'
 import { ITag } from '@/types/tag/tag.type'
-import { ContainerOutlined, UnorderedListOutlined } from '@ant-design/icons'
+import { ContainerOutlined, UnorderedListOutlined, UploadOutlined } from '@ant-design/icons'
 import { Editor } from '@tinymce/tinymce-react'
-import { Divider, Space, Switch, Input, Row, Checkbox, Button, Form, Typography, Skeleton } from 'antd'
+import { Divider, Space, Switch, Input, Row, Checkbox, Button, Form, Typography, Skeleton, message, UploadProps, Upload } from 'antd'
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ChapterListSection from './ChapterListSection'
 import ContentSection from '@/component/ContentSection'
+import axiosInstance from '@/config/axios'
+import { getDownloadURL, ref } from 'firebase/storage'
+import { storage } from '@/config-firebsae'
 const { Title } = Typography
 interface Props {
   book: BookDetails
@@ -21,10 +24,33 @@ function BookEditSection({ book }: Props) {
   const { data: categories, isFetching: isFetchingCategory } = useFetchCategories({})
   const [categoryData, setCategoryData] = useState<Category[]>([])
   const navigate = useNavigate()
-
+  const [thumbnailUrlState, setThumbnailUrl] = useState(book?.thumbnailUrl)
   const { data: tags, isFetching: isFetchingTag } = useFetchTags({})
   const [tagData, setTagData] = useState<ITag[]>([])
 
+  const props: UploadProps = {
+    name: 'file',
+    action: axiosInstance.defaults.baseURL + 'attachment/v1/upload',
+    headers: {
+      authorization: 'authorization-text',
+    },
+    onChange(info) {
+      console.log("infoL ", info)
+      if (info.file.status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+            if (info.file.status === 'done') {
+        message.success(`${info.file.name} file uploaded successfully`);
+        const url = info.file.response.responseData;
+ 
+        const imageRef = ref(storage, url);
+        getDownloadURL(imageRef).then((url) => { setThumbnailUrl(url)})
+      
+      } else if (info.file.status === 'error') {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
+  };
   useEffect(() => {
     if (categories?.content) {
       setCategoryData(categories.content)
@@ -38,6 +64,7 @@ function BookEditSection({ book }: Props) {
   const onFinish = (values: any) => {
     const bookUpdateInfo: BookUpdateInfo = {
       ...values,
+      thumbnailUrl: thumbnailUrlState,
       content: editorRef.current.getContent(),
       id: book.bookId
     }
@@ -98,7 +125,10 @@ function BookEditSection({ book }: Props) {
         </Space>
       </Divider>
       <Form.Item name='thumbnailUrl'>
-        <Input placeholder='Thumbnail Url' />
+      <Input placeholder='Thumbnail Url' value={thumbnailUrlState}/>
+        <Upload {...props}>
+          <Button icon={<UploadOutlined />}>Click to Upload</Button>
+        </Upload>
       </Form.Item>
       <Divider orientation='left'>
         <Space style={{ display: 'flex', alignItems: 'center' }}>
