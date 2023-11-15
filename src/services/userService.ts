@@ -1,7 +1,7 @@
 import axiosInstance, { ErrorResponse } from '@/config/axios'
-import { BookResponse } from '@/types/book/book.type'
 import { ISignUpRequest, IUpdateUserRequest, IUserResponse, IUserSearchParams, IUserSearchResponse } from '@/types/user/user.type'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { message } from 'antd'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 
@@ -33,8 +33,8 @@ export const searchUser = async (params: IUserSearchParams) => {
 
 export const updateUser = async (info: IUpdateUserRequest) => {
   try {
-    const res = await axiosInstance.put<boolean>('/user/v1/' + info.userId, info)
-
+    const res = await axiosInstance.put<boolean>('/user/v1/', info)
+    message.success('Update user successfully')
     return res.data
   } catch (error: any) {
     if (axios.isCancel(error)) {
@@ -55,7 +55,7 @@ export const updateUser = async (info: IUpdateUserRequest) => {
 export const addUser = async (info: ISignUpRequest) => {
   try {
     const res = await axiosInstance.post<IUserResponse>('/user/v1/addUser', info)
-
+    message.success('Add user successfully')
     return res.data
   } catch (error: any) {
     if (axios.isCancel(error)) {
@@ -76,7 +76,7 @@ export const addUser = async (info: ISignUpRequest) => {
 export const deleteUser = async (id: string | number) => {
   try {
     const res = await axiosInstance.delete<ApiResponse>('/user/v1/' + id)
-
+    message.success('Delete user successfully')
     return res.data
   } catch (error: any) {
     if (axios.isCancel(error)) {
@@ -134,15 +134,15 @@ export function useDeleteUser() {
   return useMutation((id: string | number) => deleteUser(id), {
     onMutate: async () => {
       await queryClient.cancelQueries(['user'])
-      const previouBooks: BookResponse | undefined = queryClient.getQueryData(['user'])
+      const previousUser = queryClient.getQueryData(['user'])
       // Return a context object with the snapshotted value
-      return { previouBooks }
+      return { previousUser }
     },
     onError: (_err, _bookId, context) => {
-      queryClient.setQueryData(['books'], context?.previouBooks)
+      queryClient.setQueryData(['user'], context?.previousUser)
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['books'] })
+      queryClient.invalidateQueries({ queryKey: ['user'] })
     }
   })
 }

@@ -49,3 +49,16 @@ export interface RefreshTokenResponse {
   refreshToken: string
   tokenType: string
 }
+
+export interface IUserInfo {
+  userId: number
+  email: string
+  username: string
+  name: string
+  isActive: boolean
+  avatar: string
+  roles: string[]
+  createDate: string
+  modifyDate: string
+  coin: number
+}

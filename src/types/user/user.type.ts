@@ -1,6 +1,7 @@
 export interface IUserSearchParams {
   id?: number
   name?: string
+  username?: string
   sort?: string
   size?: number
   page?:number
@@ -38,7 +39,19 @@ export interface ISignUpRequest {
 export interface IUpdateUserRequest {
   userId: number
   name: string
+  email: string
+  password: string
   isActive?: boolean
   avatar?: string
+  roles: string[]
+}
+
+export interface IAddUserRequest {
+  name: string
+  username: string
+  email: string
+  password: string
+  isActive: boolean
+  avatar: string
   roles: string[]
 }

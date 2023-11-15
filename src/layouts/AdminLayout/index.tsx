@@ -48,8 +48,8 @@ function AdminLayout(props: Props) {
     {
       key: '4',
       icon: <UserOutlined />,
-      label: 'User',
-      children: []
+      label: <Link to={AppConst.USER_ADMIN_URL}>User</Link>,
+
     }
   ]
   return (

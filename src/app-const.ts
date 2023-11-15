@@ -15,6 +15,11 @@ export namespace AppConst {
   export const TAG_ADMIN_URL = '/tag'
   export const TAG_ADMIN_ADD_URL = '/tag/add'
   export const TAG_ADMIN_EDIT_URL = '/tag/edit/'
+
+  export const USER_ADMIN_URL = '/user'
+  export const USER_ADMIN_EDIT_URL = '/user/edit/'
+  export const USER_ADMIN_ADD_URL = '/user/add'
+
   export const ERROR_PAGE = '/error'
   export const ERROR_PAGE_403 = '/error_403'
 

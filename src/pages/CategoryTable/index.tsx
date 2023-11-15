@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react'
 import { Button, Input, InputRef, Popconfirm, Row, Skeleton, Space, Table } from 'antd'
 import type { ColumnType, ColumnsType, TablePaginationConfig } from 'antd/es/table'
@@ -67,13 +68,10 @@ const CategoryTable: React.FC = () => {
         }
       })
     }
-  }, [data, tableParams])
+  }, [data])
   const navigate = useNavigate()
-  if (isFetching) {
-    return <Skeleton></Skeleton>
-  }
 
-  console.log('re render')
+
   const handleSearch = (
     selectedKeys: string[],
     confirm: (param?: FilterConfirmProps) => void,
@@ -213,6 +211,10 @@ const CategoryTable: React.FC = () => {
     //   setData([])
     // }
   }
+  if (isFetching) {
+    return <Skeleton></Skeleton>
+  }
+
 
   return (
     <>

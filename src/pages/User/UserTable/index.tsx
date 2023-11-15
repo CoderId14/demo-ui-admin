@@ -4,11 +4,12 @@ import type { ColumnType, ColumnsType, TablePaginationConfig } from 'antd/es/tab
 import { SearchOutlined } from '@mui/icons-material'
 import { FilterConfirmProps, FilterValue, SorterResult } from 'antd/es/table/interface'
 import Highlighter from 'react-highlight-words'
-import { useDeleteBook } from '@/services/bookService'
 import { Link, useNavigate } from 'react-router-dom'
 import { AppConst } from '@/app-const'
 import { IUserResponse, IUserSearchParams } from '@/types/user/user.type'
-import { useFetchUsers } from '@/services/userService'
+import { useDeleteUser, useFetchUsers } from '@/services/userService'
+import { CheckCircleTwoTone, StopTwoTone } from '@ant-design/icons'
+import moment from 'moment'
 interface DataType {
     key: number
     email: string
@@ -48,7 +49,7 @@ function convertToDataTable(data: IUserResponse[]) {
   })
   return dataTable
 }
-const BookTable: React.FC = () => {
+const UserTable: React.FC = () => {
   const [searchText, setSearchText] = useState('')
   const [searchedColumn, setSearchedColumn] = useState('')
   const searchInput = useRef<InputRef>(null)
@@ -60,7 +61,7 @@ const BookTable: React.FC = () => {
       total: 10
     }
   })
-  const useDeleteBookMutation = useDeleteBook()
+  const useDeleteUserMutation = useDeleteUser()
   const [searchParams, setSearchParams] = useState<IUserSearchParams>({
     page: tableParams.pagination?.current ? tableParams.pagination.current - 1 : 0,
     size: 30
@@ -83,17 +84,18 @@ const BookTable: React.FC = () => {
     return <Skeleton></Skeleton>
   }
 
-  console.log('re render')
   const handleSearch = (
     selectedKeys: string[],
     confirm: (param?: FilterConfirmProps) => void,
     dataIndex: DataIndex
   ) => {
+    console.log('selectedKeys: ', selectedKeys)
+    console.log('dataIndex: ', dataIndex)
     confirm()
     setSearchText(selectedKeys[0])
     setSearchParams({
       ...searchParams,
-      name: selectedKeys[0]
+      username: selectedKeys[0]
     })
     setSearchedColumn(dataIndex)
   }
@@ -103,7 +105,8 @@ const BookTable: React.FC = () => {
     setSearchText('')
   }
   const handleDelete = (key: React.Key) => {
-    useDeleteBookMutation.mutate(key)
+    console.log('key: ', key)
+    useDeleteUserMutation.mutate(key)
   }
   const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<DataType> => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
@@ -200,8 +203,11 @@ const BookTable: React.FC = () => {
         <>
           {roles.map((role) => {
             let color = role.length > 5 ? 'geekblue' : 'green'
-            if (role === 'loser') {
+            if (role === 'ROLE_USER') {
               color = 'volcano'
+            }
+            if (role === 'ROLE_ADMIN') {
+              color = 'green'
             }
             return (
               <Tag color={color} key={role}>
@@ -213,26 +219,34 @@ const BookTable: React.FC = () => {
       )
     },
     {
+        title: 'Coin',
+        dataIndex: 'coin',
+        key: 'coin'
+      },
+    {
       title: 'Avatar',
       dataIndex: 'avatar',
-      key: 'avatar'
+      key: 'avatar',
+      render : (avatar) => <img src={avatar} alt="avatar" style={{width: '50px', height: '50px'}}/>
     },
     {
       title: 'Active',
       dataIndex: 'isActive',
-      key: 'isActive'
+      key: 'isActive',
+      render: (isActive) => <>{isActive ? <CheckCircleTwoTone twoToneColor="#52c41a" /> : <StopTwoTone twoToneColor="#FF3333" />}</>
     },
     {
         title: 'ModifyDate',
         dataIndex: 'modifyDate',
-        key: 'modifyDate'
+        key: 'modifyDate',
+        render: (modifyDate) => <>{modifyDate ? <span>{moment(modifyDate).format('YYYY-MM-DD')}</span> : 'N/A'}</>
       },
     {
       title: 'Action',
       key: 'action',
       render: (_, record) => (
         <Space size='middle'>
-          <Link to={AppConst.BOOK_ADMIN_EDIT_URL + record.key}>Edit</Link>
+          <Link to={AppConst.USER_ADMIN_EDIT_URL + record.key}>Edit</Link>
           <Popconfirm title='Sure to delete?' onConfirm={() => handleDelete(record.key)}>
             <a>Delete</a>
           </Popconfirm>
@@ -262,8 +276,8 @@ const BookTable: React.FC = () => {
   return (
     <>
       <Row>
-        <Button type='primary' onClick={() => navigate(AppConst.BOOK_ADMIN_ADD_URL)}>
-          Add New Book
+        <Button type='primary' onClick={() => navigate(AppConst.USER_ADMIN_ADD_URL)}>
+          Add New User
         </Button>
       </Row>
       <Table
@@ -278,4 +292,4 @@ const BookTable: React.FC = () => {
   )
 }
 
-export default BookTable
+export default UserTable
