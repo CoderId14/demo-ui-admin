@@ -1,3 +1,4 @@
+
 export interface IUserSearchParams {
   id?: number
   name?: string
@@ -6,6 +7,7 @@ export interface IUserSearchParams {
   size?: number
   page?:number
 }
+
 
 export interface IUserResponse {
   userId: number

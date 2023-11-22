@@ -33,6 +33,7 @@ const UserEdit = () => {
     useEffect(() => {
         if (data) {
           setUser(data.content[0])
+          setAvatar(data.content[0].avatar)
         }
       }, [data])
     useEffect(() => {
@@ -101,7 +102,7 @@ const UserEdit = () => {
                 isActive: user?.isActive,
                 roles: user?.roles,
                 avatar: user?.avatar,
-                coin: user?.coin
+                coin: user?.coin,
               }}
             >
               <Form.Item name='name' label='Name' rules={[{ required: true, message: 'Please enter a name' }]}>

@@ -8,26 +8,46 @@ import { Category } from '@/types/category/category.type'
 import { ITag } from '@/types/tag/tag.type'
 import { ContainerOutlined, UnorderedListOutlined, UploadOutlined } from '@ant-design/icons'
 import { Editor } from '@tinymce/tinymce-react'
-import { Button, Checkbox, Divider, Form, Input, Row, Skeleton, Space, Switch, Typography, Upload, UploadProps, message } from 'antd'
+import { Button, Checkbox, Divider, Form, Input, Row, Select, SelectProps, Skeleton, Space, Switch, Typography, Upload, UploadProps, message } from 'antd'
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { storage } from '@/config-firebsae'
 import { getDownloadURL, ref } from 'firebase/storage'
+import { IUserResponse } from '@/types/user/user.type'
+import { useFetchUsers } from '@/services/userService'
 const { Title } = Typography
 
+function convertToOptionsUsers(data: IUserResponse[]) {
+  const users: SelectProps['options'] = []
+  data.map((user) => {
+    const tempData = {
+      label: user.name,
+      value: user.userId
+    }
+    users.push(tempData)
+  })
+  return users
 
+}
 
 function BookAdd() {
   const addBookMutation = useAddBook()
   const { data: categories, isFetching: isFetchingCategory } = useFetchCategories({})
+
   const [categoryData, setCategoryData] = useState<Category[]>([])
   const navigate = useNavigate()
   const [thumbnailUrlState, setThumbnailUrl] = useState('' as string)
   const { data: tags, isFetching: isFetchingTag } = useFetchTags({})
   const [tagData, setTagData] = useState<ITag[]>([])
+  const {data: userData, isFetching: isFetchingUser} = useFetchUsers({'userRoles.role.roleName': "ROLE_WRITER"})
+  const [users, setUsers] = useState<SelectProps['options'] | undefined>()
 
 
-  
+  useEffect(() => {
+    if (userData) {
+      setUsers(convertToOptionsUsers(userData.content))
+    }
+  }, [userData])
   useEffect(() => {
     if (categories?.content) {
       setCategoryData(categories.content)
@@ -39,12 +59,12 @@ function BookAdd() {
   const editorRef: any = useRef(null)
   const [form] = Form.useForm()
   const onFinish = (values: any) => {
-    const bookUpdateInfo: BookAddInfo = {
+    const bookAdd: BookAddInfo = {
       ...values,
       thumbnailUrl: thumbnailUrlState,
       content: editorRef.current.getContent()
     }
-    addBookMutation.mutate(bookUpdateInfo)
+    addBookMutation.mutate(bookAdd)
     navigate(AppConst.BOOK_ADMIN_URL)
     console.log('Received values of form: ', { ...values,thumbnailUrl: thumbnailUrlState, content: editorRef.current.getContent() })
   }
@@ -79,7 +99,7 @@ function BookAdd() {
     },
   };
   console.log("thumbnailUrl: ", thumbnailUrlState)
-  if (isFetchingCategory || isFetchingTag || addBookMutation.isLoading) {
+  if (isFetchingCategory || isFetchingTag || addBookMutation.isLoading || isFetchingUser) {
     return <Skeleton />
   }
   return (
@@ -117,7 +137,7 @@ function BookAdd() {
         </Space>
       </Divider>
       <Form.Item name='title'>
-        <Input placeholder='Title'/>
+        <Input placeholder='Title' />
       </Form.Item>
       <Divider orientation='left'>
         <Space style={{ display: 'flex', alignItems: 'center' }}>
@@ -126,7 +146,7 @@ function BookAdd() {
         </Space>
       </Divider>
       <Form.Item name='thumbnailUrl'>
-        <Input placeholder='Thumbnail Url' value={thumbnailUrlState}/>
+        <Input placeholder='Thumbnail Url' value={thumbnailUrlState} />
         <Upload {...props}>
           <Button icon={<UploadOutlined />}>Click to Upload</Button>
         </Upload>
@@ -151,6 +171,11 @@ function BookAdd() {
       <Row>
         <Form.Item name='tags'>
           <Checkbox.Group options={tagOptions} />
+        </Form.Item>
+      </Row>
+      <Row>
+        <Form.Item name='author' label='Author' rules={[{ required: true, message: 'Please enter a users' }]}>
+          <Select allowClear placeholder='Select Author' options={users}></Select>
         </Form.Item>
       </Row>
       <Divider orientation='left'>

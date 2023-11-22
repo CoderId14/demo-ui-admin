@@ -146,7 +146,7 @@ export function useDeleteUser() {
     }
   })
 }
-export function useFetchUsers(params: IUserSearchParams) {
+export function useFetchUsers(params: any) {
   const queryClient = useQueryClient()
 
   const queryKey = ['user', params]

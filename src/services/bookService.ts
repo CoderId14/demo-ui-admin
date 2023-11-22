@@ -116,6 +116,7 @@ export function useAddBook() {
     onMutate: async (_newBook) => {
       await queryClient.cancelQueries(['books'])
       const previouBooks = queryClient.getQueryData(['books'])
+      queryClient.invalidateQueries({ queryKey: ['books'] })
       // Return a context object with the snapshotted value
       return { previouBooks }
     },

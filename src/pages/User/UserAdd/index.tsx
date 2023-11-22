@@ -21,6 +21,7 @@ function convertToOptionsRoles(data: IRoleResponse[]) {
     })
     return roles
   }
+
 const UserAdd = () => {
     const useAddMutation = useAddUser() 
     const {data: roleData, isFetching: isFetchingRoles} = useFetchRoles({})
@@ -32,6 +33,7 @@ const UserAdd = () => {
           setRoles(convertToOptionsRoles(roleData.content))
         }
       }, [roleData])
+
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(false);
 
@@ -103,7 +105,7 @@ const UserAdd = () => {
                 label='isActive'
                 rules={[{ required: true, message: 'Please enter a isActive' }]}
               >
-                <Switch defaultChecked={true} />
+                <Switch />
               </Form.Item>
               <Form.Item name='roles' label='Roles' rules={[{ required: true, message: 'Please enter a roles' }]}>
                 <Select mode='multiple' allowClear placeholder='Roles' options={roles}></Select>
