@@ -20,6 +20,11 @@ export namespace AppConst {
   export const USER_ADMIN_EDIT_URL = '/user/edit/'
   export const USER_ADMIN_ADD_URL = '/user/add'
 
+
+  //writer
+  export const WRITER_DASH_REQUEST_URL = '/writer/request'
+  export const WRITER_PROMOTE_URL = '/writer/promote'
+  //error
   export const ERROR_PAGE = '/error'
   export const ERROR_PAGE_403 = '/error_403'
 

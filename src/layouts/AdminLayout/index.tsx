@@ -1,4 +1,5 @@
 import {
+  CompassOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   TagOutlined,
@@ -49,7 +50,16 @@ function AdminLayout(props: Props) {
       key: '4',
       icon: <UserOutlined />,
       label: <Link to={AppConst.USER_ADMIN_URL}>User</Link>,
-
+    },
+    {
+      key: '4',
+      icon: <CompassOutlined />,
+      label: <Link to={AppConst.WRITER_DASH_REQUEST_URL}>WRITER DASHBOARD</Link>,
+    },
+    {
+      key: '5',
+      icon: <CompassOutlined />,
+      label: <Link to={AppConst.WRITER_PROMOTE_URL}>WRITER PROMOTE</Link>,
     }
   ]
   return (

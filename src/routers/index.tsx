@@ -18,6 +18,8 @@ import UserTable from '@/pages/User/UserTable'
 import TagAdd from '@/pages/tag/TagAdd'
 import TagEdit from '@/pages/tag/TagEdit'
 import TagTable from '@/pages/tag/TagTable'
+import DashRequest from '../pages/Writer/DashRequest/index'
+import WriterPromoteDash from '@/pages/Writer/WriterPromoteRequest'
 
 const adminRoutes = [
   { path: AppConst.HOME_ADMIN_URL, component: BookTable },
@@ -32,12 +34,13 @@ const adminRoutes = [
   { path: AppConst.BOOK_ADMIN_ADD_URL, component: BookAdd },
   { path: AppConst.CHAPTER_ADMIN_EDIT_URL + ':id', component: ChapterEdit },
   { path: AppConst.CHAPTER_ADMIN_ADD_URL + ':id', component: ChapterAdd },
-  { path: AppConst.CHAPTER_IMG_ADMIN_ADD_URL + ':id', component:  ChapterImgAdd},
-  { path: AppConst.CHAPTER_IMG_ADMIN_EDIT_URL + ':id', component: ChapterImgEdit},
-  { path: AppConst.USER_ADMIN_URL, component: UserTable},
-  { path: AppConst.USER_ADMIN_EDIT_URL + ':id', component: UserEdit},
-  {path: AppConst.USER_ADMIN_ADD_URL, component: UserAdd}
-  
+  { path: AppConst.CHAPTER_IMG_ADMIN_ADD_URL + ':id', component: ChapterImgAdd },
+  { path: AppConst.CHAPTER_IMG_ADMIN_EDIT_URL + ':id', component: ChapterImgEdit },
+  { path: AppConst.USER_ADMIN_URL, component: UserTable },
+  { path: AppConst.USER_ADMIN_EDIT_URL + ':id', component: UserEdit },
+  { path: AppConst.USER_ADMIN_ADD_URL, component: UserAdd },
+  { path: AppConst.WRITER_DASH_REQUEST_URL,component: DashRequest },
+  { path: AppConst.WRITER_PROMOTE_URL,component: WriterPromoteDash }
 
 ]
 

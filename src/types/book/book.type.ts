@@ -20,7 +20,7 @@ export interface Book {
   reviewCount: number
   premium: boolean
   novel: boolean
-  
+  active: boolean
 }
 export interface BookDetails {
   bookId: number
@@ -40,6 +40,7 @@ export interface BookDetails {
   reviewCount: number
   premium: boolean
   novel: boolean
+  active: boolean
 }
 export interface BookResponse {
   content: Book[]

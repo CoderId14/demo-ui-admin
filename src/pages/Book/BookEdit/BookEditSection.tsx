@@ -88,9 +88,19 @@ function BookEditSection({ book }: Props) {
         title: book?.title,
         thumbnailUrl: book?.thumbnailUrl,
         categories: book?.categories.map((category) => category.categoryId),
-        tags: book?.tags.map((tag) => tag.tagId)
+        tags: book?.tags.map((tag) => tag.tagId),
+        isActive: book?.active
       }}
     >
+            <Divider orientation='left'>
+        <Space style={{ display: 'flex', alignItems: 'center' }}>
+          <ContainerOutlined style={{ fontSize: 32 }} />
+          <Title level={3}>Is Active</Title>
+        </Space>
+      </Divider>
+      <Form.Item name='isActive' valuePropName='checked'>
+        <Switch defaultChecked={book?.active} />
+      </Form.Item>
       <Divider orientation='left'>
         <Space style={{ display: 'flex', alignItems: 'center' }}>
           <ContainerOutlined style={{ fontSize: 32 }} />
